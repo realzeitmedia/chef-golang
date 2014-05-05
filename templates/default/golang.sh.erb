@@ -1,0 +1,4 @@
+<% if @goroot != '/usr/local/go' %>
+export GOROOT=<%= @goroot %>
+<% end %>
+export PATH=$PATH:<%= @goroot %>/bin
