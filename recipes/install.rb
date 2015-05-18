@@ -25,7 +25,7 @@ include_recipe "build-essential"
 include_recipe "golang::install"
 
 if not node[:golang][:url]
-  node.set[:golang][:url] = make_url(
+  node.default[:golang][:url] = make_url(
     node[:golang][:version],
     node[:platform_family],
     node[:kernel][:machine]
