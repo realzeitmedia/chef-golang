@@ -60,6 +60,7 @@ action :deploy do
     code <<-EOH
     #{install_commands}
     EOH
+    action :nothing
   end
 end
 
