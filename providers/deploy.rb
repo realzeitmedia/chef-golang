@@ -16,8 +16,9 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-#
-#
+
+use_inline_resources
+
 action :deploy do
   pkg              = new_resource.package_name || new_resource.name
   workpath         = ::File.join(Chef::Config[:file_cache_path], "src", pkg)
@@ -60,6 +61,7 @@ action :deploy do
     code <<-EOH
     #{install_commands}
     EOH
+    action :nothing
   end
 end
 
