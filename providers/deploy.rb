@@ -26,6 +26,8 @@ action :deploy do
   ssh_wrapper_path = new_resource.ssh_wrapper_path || "/etc/deployment/ssh_wrapper"
   install_commands = new_resource.install_commands || "make && make test && make install"
   deploy_key       = new_resource.deploy_key
+  force_install    = new_resource.force_install
+  install_action   = force_install ? :run : :nothing
 
   ENV["PATH"] = "#{ENV["PATH"]}:#{node[:golang][:install_dir]}/go/bin"
   package "git"
@@ -52,7 +54,13 @@ action :deploy do
     reference  new_resource.revision
     action :sync
     ssh_wrapper ssh_wrapper_path
+    notifies :run, "ruby_block[bridge]", :immediately
+  end
+
+  ruby_block "bridge" do
+    block { true }
     notifies :run, "bash[install_gopackage]", :immediately
+    not_if { force_install }
   end
 
   bash "install_gopackage" do
@@ -61,7 +69,7 @@ action :deploy do
     code <<-EOH
     #{install_commands}
     EOH
-    action :nothing
+    action install_action
   end
 end
 
