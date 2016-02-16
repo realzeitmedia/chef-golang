@@ -28,3 +28,4 @@ attribute :deploy_key, kind_of: String
 attribute :ssh_wrapper_path, kind_of: String
 attribute :godep, kind_of: [TrueClass, FalseClass]
 attribute :install_commands, kind_of: String
+attribute :force_install, kind_of: [TrueClass, FalseClass], default: false
