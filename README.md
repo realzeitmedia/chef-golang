@@ -34,6 +34,8 @@ Deploy a Go binary from a private source repository
 * `deploy_key`: The access key used for SSH access
 * `godep`: Use godep for building the binary (true/false)
 * `install_commands`: The commands to run for the installation
+* `force_install`: Always run install commands even if git repo is in
+  sync (default: false)
 
 #### Example
 
